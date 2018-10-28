@@ -1,5 +1,35 @@
 extends layout
 
 block content
-  h1= title
-  p Welcome to #{title}
+    body
+        .container
+            .jumbotron
+                h2 Tasks To Do
+            table#taskTable.table.table-hover.table-striped.table-bordered
+        link(rel='stylesheet', href='https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css')
+        script(src='https://cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js')
+        script.
+            $(document).ready(function() {
+                var data = [
+                    {
+                        "id": "111",
+                        "description": "This is a test1.",
+                        "completed": true
+                    },
+                    {
+                        "id": "333",
+                        "description": "This is a test3.",
+                        "completed": false
+                    }
+                ];
+                $('#taskTable').DataTable( 
+                    {
+                        data: data,
+                        columns: [
+                            { title: "Id", data: "id" },
+                            { title: "Description", data: "description" },
+                            { title: "Completed", data: "completed" }
+                        ]
+                    }
+                )
+            });
