@@ -12,8 +12,10 @@ var indexRouter = require('./routes/index');
 
 var app = express();
 
-app.get('/tasks', task.index);
-app.all('/add_task', task.add_task);
+app.get('/tasks', task.index)
+    .post('/tasks', task.addTask);
+
+app.get('/tasks/:id', task.getTask);
 
 // view engine setup
 // app.set('views', path.join(__dirname, 'views'));
@@ -24,11 +26,6 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 // app.use(express.static(path.join(__dirname, 'public')));
-
-AWS.config.update({
-    region: "us-east-2",
-    endpoint: "http://localhost:8000"
-});
 
 app.use('/', indexRouter);
 
