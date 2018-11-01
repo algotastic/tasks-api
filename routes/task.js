@@ -70,16 +70,16 @@ exports.getTask = function(req, res) {
 };
 
 exports.addTask = function(req, res) {
-    console.log(req);
-    console.log('req.query.id: ' + req.query.id);
-    console.log('req.query.description: ' + '"' + req.query.description + '"');
-    console.log('req.query.completed: ' + req.query.completed);
+    console.log(req.body);
+    console.log('req.query.id: ' + req.body.id);
+    console.log('req.query.description: ' + req.body.description);
+    console.log('req.query.completed: ' + req.body.completed);
     var params = {
         TableName: TASK_TABLE,
         Item: {
-            "id": parseInt(req.query.id),
-            "description": req.query.description,
-            "completed": req.query.completed
+            "id": parseInt(req.body.id),
+            "description": req.body.description,
+            "completed": req.body.completed
         }
     };
     docClient.put(params, function(err, data) {
@@ -87,8 +87,8 @@ exports.addTask = function(req, res) {
             console.error("Unable to add item. Error JSON: ", JSON.stringify(err, null, 2));
             res.send('Unable to add item.');
         } else {
-            console.log("Added item: ", JSON.stringify(data, null, 2));
-            res.send('success!');
+            // console.log("Added item: ", JSON.stringify(data, null, 2));
+            res.send('Task added!');
         }
     });
 };
