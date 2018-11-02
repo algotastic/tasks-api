@@ -7,12 +7,13 @@ AWS.config.update({
 var docClient = new AWS.DynamoDB.DocumentClient();
 console.log("Importing tasks into DynamoDB. Please wait.");
 var tasks = JSON.parse(fs.readFileSync('taskData.json', 'utf8'));
+const uuid = require('uuid/v4');
 tasks.forEach(function(task) {
   console.log(task)
-var params = {
+    var params = {
         TableName: "Tasks",
         Item: {
-            "id": task.id,
+            "id": uuid(),
             "description": task.description,
             "completed": task.completed
         }

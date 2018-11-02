@@ -1,11 +1,13 @@
-var AWS = require("aws-sdk");
-
+const TASK_TABLE = "Tasks";
+const AWS = require("aws-sdk");
+// must be configured before initializing doc client
 AWS.config.update({
     region: "us-east-2",
     endpoint: "http://localhost:8000"
 });
-var docClient = new AWS.DynamoDB.DocumentClient();
-const TASK_TABLE = "Tasks";
+
+const docClient = new AWS.DynamoDB.DocumentClient();
+const uuid = require('uuid/v4');
 
 exports.index = function(req, res) {
     var params = {
@@ -41,7 +43,7 @@ exports.index = function(req, res) {
 };
 
 exports.getTask = function(req, res) {
-    var taskId = parseInt(req.url.slice(7));
+    var taskId = req.url.slice(7);
     console.log(req.url);
     console.log('taskId: ' + taskId);
 
@@ -71,13 +73,13 @@ exports.getTask = function(req, res) {
 
 exports.addTask = function(req, res) {
     console.log(req.body);
-    console.log('req.query.id: ' + req.body.id);
+    // console.log('req.query.id: ' + req.body.id);
     console.log('req.query.description: ' + req.body.description);
     console.log('req.query.completed: ' + req.body.completed);
     var params = {
         TableName: TASK_TABLE,
         Item: {
-            "id": parseInt(req.body.id),
+            "id": uuid(),
             "description": req.body.description,
             "completed": req.body.completed
         }

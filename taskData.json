@@ -1,16 +1,13 @@
 [
     {
-        "id": 1,
         "description": "Do this task now.",
         "completed": false
     },
     {
-        "id": 2,
         "description": "Do this task later.",
         "completed": false
     },
     {
-        "id": 3,
         "description": "Did this task.",
         "completed": true
     }
