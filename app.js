@@ -11,8 +11,8 @@ var bodyParser = require('body-parser');
 var indexRouter = require('./routes/index');
 
 var app = express();
-
-app.listen(3000, () => console.log('Tasks API listening on port 3000!'));
+const port = 3001;
+app.listen(port, () => console.log('Tasks API listening on port ' + port + '!'));
 
 // view engine setup
 // app.set('views', path.join(__dirname, 'views'));
