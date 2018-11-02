@@ -43,10 +43,6 @@ exports.index = function(req, res) {
 };
 
 exports.getTask = function(req, res) {
-    var taskId = req.url.slice(7);
-    console.log(req.url);
-    console.log('taskId: ' + taskId);
-
     var params = {
         TableName: TASK_TABLE,
         KeyConditionExpression: "#id = :id",
@@ -54,7 +50,7 @@ exports.getTask = function(req, res) {
             "#id": "id"
         },
         ExpressionAttributeValues: {
-            ":id": taskId
+            ":id": req.params.id
         }
     };
 
@@ -72,10 +68,6 @@ exports.getTask = function(req, res) {
 };
 
 exports.addTask = function(req, res) {
-    console.log(req.body);
-    // console.log('req.query.id: ' + req.body.id);
-    console.log('req.query.description: ' + req.body.description);
-    console.log('req.query.completed: ' + req.body.completed);
     var params = {
         TableName: TASK_TABLE,
         Item: {
@@ -89,8 +81,15 @@ exports.addTask = function(req, res) {
             console.error("Unable to add item. Error JSON: ", JSON.stringify(err, null, 2));
             res.send('Unable to add item.');
         } else {
-            // console.log("Added item: ", JSON.stringify(data, null, 2));
+            console.log("Added task!");
             res.send('Task added!');
         }
     });
+};
+
+exports.setCompleted = function(req, res) {
+    console.log('setCompleted');
+    console.log('req.params.id' + req.param.id);
+    console.log('req.params.completedBool' + req.param.completedBool);
+    res.send('setCompleted here');
 };

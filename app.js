@@ -26,10 +26,13 @@ app.use(cookieParser());
 
 app.use('/', indexRouter);
 
-app.get('/tasks', task.index)
-    .post('/tasks', task.addTask);
+app.route('/tasks')
+    .get(task.index)
+    .post(task.addTask);
 
-app.get('/tasks/:id', task.getTask);
+app.get('/tasks/:id([a-fA-F0-9]{8}-[a-fA-F0-9]{4}-4[a-fA-F0-9]{3}-[89aAbB][a-fA-F0-9]{3}-[a-fA-F0-9]{12})', task.getTask);
+
+// app.put('/tasks/:id/completed/:completedBool', task.setCompleted);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
