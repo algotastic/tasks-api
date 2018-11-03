@@ -90,17 +90,12 @@ exports.addTask = function(req, res) {
 };
 
 exports.setCompleted = function(req, res) {
-    console.log('setCompleted');
-    console.log('req.params.id: ' + req.params.id);
-    console.log('req.params.completed: ' + req.params.completed + ', type: ' + typeof(req.params.completed));
     var completedBool = req.params.completed === 'true' ? true : false;
-    console.log('type of completedBool: ' + typeof(completedBool));
     var params = {
         TableName: TASK_TABLE,
         Key: {
             "id": req.params.id
         },
-        ConditionExpression: "completed <> :c",
         UpdateExpression: "SET completed = :c",
         ExpressionAttributeValues: {
             ":c": completedBool
@@ -110,6 +105,7 @@ exports.setCompleted = function(req, res) {
     docClient.update(params, function(err, data) {
         if (err) {
             console.error("Unable to update item. Error: ", JSON.stringify(err, null, 2));
+            res.send('Unable to update task.');
         } else {
             console.log("Item updated.");
             res.send(data);
