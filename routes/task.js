@@ -104,11 +104,35 @@ exports.setCompleted = function(req, res) {
     }
     docClient.update(params, function(err, data) {
         if (err) {
-            console.error("Unable to update item. Error: ", JSON.stringify(err, null, 2));
-            res.send('Unable to update task.');
+            console.error('Unable to update task\'s completed value. Error: ', JSON.stringify(err, null, 2));
+            res.send('Unable to update task\'s completed value.');
         } else {
-            console.log("Item updated.");
+            console.log('Item\'s completed value updated.');
             res.send(data);
         }
+    });
+};
+
+exports.setDescription = function(req,res) {
+    var params = {
+        TableName: TASK_TABLE,
+        Key: {
+            "id": req.params.id
+        },
+        UpdateExpression: "SET description = :d",
+        ExpressionAttributeValues: {
+            ":d": req.body.description
+        },
+        ReturnValues: "ALL_NEW"
+    }
+    docClient.update(params, function(err, data) {
+        if (err) {
+            console.error('Unable to update task\'s description. Error: ', JSON.stringify(err, null, 2));
+            res.send('Unable to update task\'s description.');
+        } else {
+            console.log('Item\'s description updated.');
+            res.send(data);
+        }
+
     });
 };
