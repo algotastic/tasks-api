@@ -96,7 +96,10 @@ exports.setCompleted = function(req, res) {
         Key: {
             "id": req.params.id
         },
-        UpdateExpression: "SET completed = :c",
+        UpdateExpression: "set #comp = :c",
+        ExpressionAttributeNames: {
+            "#comp" : "completed"
+        },
         ExpressionAttributeValues: {
             ":c": completedBool
         },
@@ -119,7 +122,10 @@ exports.setDescription = function(req,res) {
         Key: {
             "id": req.params.id
         },
-        UpdateExpression: "SET description = :d",
+        UpdateExpression: "set #desc = :d",
+        ExpressionAttributeNames: {
+            "#desc" : "description"
+        },
         ExpressionAttributeValues: {
             ":d": req.body.description
         },
