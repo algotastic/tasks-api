@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "start": "nodemon ./bin/www",
+    "start": "node ./bin/www",
+    "dev-start": "nodemon ./bin/www", 
     "create-db": "node createTasksTable.js",
     "delete-db": "node deleteTasksTable.js",
     "load-data": "node loadTaskData.js",
